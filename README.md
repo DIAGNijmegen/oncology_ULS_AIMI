@@ -25,12 +25,13 @@ You can use this repo in two ways:
 ### Steps to Submit
 1. Zip your nnUNet model into a `.tar.gz`.
 2. Fork this repo so you have your own version.
-3. Go to the page of your algorithm.
-4. Upload your model tar.gz under 'Model'.
-5. Connect your version of this repo under 'Containers'.
-6. Tag your repo (meaning make a release version. Grand Challenge sees these releases automatically).
-7. Go to 'Try out algorithm', and see if this all works by uploading the stacked_voi_sample.mha that's on the zenodo page, along with the stacked_spacing_sample.json that's in this repo under architecture/input/. You can use this image as a debugging case.
-8. If you aren't getting any errors, your model is ready to be submitted to the ULS23 challenge! That can be done on the challenge page: https://uls23.grand-challenge.org/
+3. Make sure the model dataset name is correct in the config.json file. Automatically, when building the docker container, nnunet_results is copied to opt/ml/model/, so you can keep this part.
+4. Go to the page of your algorithm.
+5. Upload your model tar.gz under 'Model'.
+6. Connect your version of this repo under 'Containers'.
+7. Tag your repo (meaning make a release version. Grand Challenge sees these releases automatically).
+8. Go to 'Try out algorithm', and see if this all works by uploading the stacked_voi_sample.mha that's on the zenodo page, along with the stacked_spacing_sample.json that's in this repo under architecture/input/. You can use this image as a debugging case.
+9. If you aren't getting any errors, your model is ready to be submitted to the ULS23 challenge! That can be done on the challenge page: https://uls23.grand-challenge.org/
 
 ## Optional: Local Testing with Docker
 If you want to test locally before submitting, you have to use Docker locally. As mentioned before, this can also be done on GC, but locally might go a bit faster in terms of debugging. You will have to work a bit with Docker with this, so it might also be good practice (: 
@@ -50,7 +51,7 @@ If you want to test locally before submitting, you have to use Docker locally. A
            └── ...
    ```
 
-4. Make sure the model dataset name is correct in the config.json file. 
+4. Make sure the model dataset name is correct in the config.json file. Automatically, when building the docker container, nnunet_results is copied to opt/ml/model/, so you can keep this part.
 5. Put the sample input image `stacked_voi_sample.mha` from the zenodo page in `architecture/input/images/stacked-3d-ct-lesion-volumes/` (the `stacked_3d-volumetric-spacings.json` is already in the right place).
 6. If you want to do CPU testing instead of GPU, change `device` in `process.py` from `"cuda"` to `"cpu"`.
 7. Build the container using Docker.
