@@ -4,17 +4,17 @@
 This repository is a ready-to-submit template for the ULS (Universal Lesion Segmentation) challenge on Grand Challenge. It packages your trained nnUNet model for automatic evaluation. Specifically, this is for models trained with a smaller input size (64×128×128). The code automatically crops challenge images to fit, runs your model, and pads results back so that they can be evaluated on the original data. This is useful, because training on smaller images is much faster (: 
 
 ## Data and other resources
-Everything else to get started can be found here: https://zenodo.org/records/15355959. This zenodo link has three things: 
+Everything else to get started can be found here: https://doi.org/10.5281/zenodo.15226100. This zenodo link has three things: 
 - fully_annotated_data.zip: The original challenge data has already been cropped for you, you can find that in this zip file. Along with being cropped, we left out the semi-annotated part of the original dataset. This is also for extra speed. Yes, you can expect a slight drop in performance because of the smaller and fewer images, but this will NOT affect your grade. We are aware of this. Also, your score for the challenge won't directly be reflected in the grade for the project: We far prefer a well-explained model that doesn't do much better than the baseline, than a model that does far better but has no proper documentation/explanations. 
 - nnUNet_results.zip: These are the model weights of the baseline model that was trained on this cropped data. You can use this to test how this repo works, and to see what format we expect. Your goal in essence is to improve on this model.
-- stacked_voi_sample.mha: This is a test image. If you want to try out your model, you can use this image to do it. The ULS23 challenge works with these stacked mha files, so that's why you need this specific image to see if your model works properly on GC. More info on this below. 
+- stacked_voi_sample.mha and stacked-3d-volumetric-spacings.json: This is a test image and its corresponding spacing. If you want to try out your model, you can use these to do it. The ULS23 challenge works with these stacked mha files and spacings jsons, so that's why you need this specific image and spacing to see if your model works properly on GC. More info on this below. 
 
 ## How to use this repo
 You can use this repo in two ways:
 
 **For submission**: You upload this repo, along with a tar.gz file containing your model weights, to Grand Challenge to evaluate your model on that platform.
 
-**For trying out**: You have this repo on your local computer, you add your weights to this repo, and see if everything runs properly locally by running it on one image. This is useful for debugging, because on Grand Challenge it might take a while to see your errors. It is however also possible to do this on GC, you can decide this yourself.
+**For trying out**: You have this repo on your local computer, you add your weights to this repo, and see if everything runs properly locally by running it on one image. This is useful for debugging, because on Grand Challenge it might take a while to see your errors. It is however also possible to do this on GC, you can decide this for yourself.
 
 ## Quick Start: Submit to Grand Challenge
 ### Prerequisites
@@ -38,7 +38,7 @@ If you want to test locally before submitting, you have to use Docker locally. A
 
 ### Prerequisites for Testing
 - A trained nnUNet model.
-- Docker: See [docker.com](https://www.docker.com/get-started). We recommend using Docker Desktop in combination with the VSCode extension of Docker. If you have this, you just need to right click on a dockerfile to build the container instead of using the terminal.
+- Docker: See [docker.com](https://www.docker.com/get-started). We recommend using Docker Desktop in combination with the VSCode extension of Docker. If you have this, you just need to right click on a dockerfile to build the container instead of using the terminal. In Docker Desktop, you can then see your builds and interact with them.
 
 ### Setup for local testing
 1. Clone this repo locally.
@@ -67,7 +67,7 @@ This section is just some more info on what this repo actually does. Not necessa
 5. **Save**: Outputs stacked masks.
 
 ### Customization
-The `config.json` contains all the cropping and padding settings. You technically don't have to change anything here unless you want to change the path to your model, but it's good to know.
+The `config.json` contains all the cropping and padding settings. You technically don't have to change anything here except the path to your model, but it's good to know.
 
 ### File Structure
 - `process.py`: Inference script.
@@ -76,7 +76,7 @@ The `config.json` contains all the cropping and padding settings. You technicall
 - `Dockerfile`: Main file that you run to build the container.
 - `scripts/build.sh`: Build script.
 
-## VERY IMPORTANT
-It's always possible to get some versioning errors with nnunetv2 or python, since packages are constantly being updated. Generally, it's smart to use the same package versions as this repo uses. We highly recommend trying to upload your model weights early in the process, before having done all the training, just to be sure everything works. You could for example just take your second epoch weights and try it. This way, you prevent errors later on! 
+## Important!
+It's always possible to get some versioning errors with nnunetv2 or python, since packages are constantly being updated. Generally, it's smart to use the same package versions as this repo uses. We highly recommend trying to upload your model weights early in the process, before having done all the training, just to be sure everything works. You could for example just take your second epoch weights and try it. This way, you prevent errors later on! If you use the baseline weights to test it, you might get version warnings (but it should still run). This is expected behavior, so nothing to worry about (:
 
 Good luck!
